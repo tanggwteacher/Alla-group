@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tang Live Classroom | Beta</title>
+<style>
+:root{--red:#d71920;--deep:#8e1017;--pink:#fff0f0;--ink:#25232a;--muted:#77717a;--gold:#ffcc4d;--line:#f1d4d5}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:#fff7f7;color:var(--ink)}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:11px 15px;font-weight:750;transition:.15s}button:hover{transform:translateY(-1px)}.primary{background:var(--red);color:#fff}.soft{background:#ffe1e2;color:var(--deep)}.dark{background:#29242b;color:white}.danger{background:#fff0f0;color:#a5161c;border:1px solid #ffc8cb}
+header{background:linear-gradient(120deg,#b70f19,#ed292f);color:#fff;padding:18px clamp(16px,4vw,44px);display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 8px 28px #c51a2424}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:16px;background:#fff;color:var(--red);display:grid;place-items:center;font-size:24px;font-weight:1000;box-shadow:0 4px 0 #8d0b11}.brand h1{margin:0;font-size:clamp(18px,3vw,25px)}.brand small{opacity:.85}.header-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pill{background:#ffffff25;border:1px solid #ffffff50;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800}
+main{max-width:1200px;margin:auto;padding:24px clamp(14px,3vw,32px) 48px}.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:20px;align-items:stretch}.hero-copy,.tang-card,.panel,.stat{background:white;border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 28px #8f0f1610}.hero-copy{padding:clamp(20px,4vw,38px);position:relative;overflow:hidden}.eyebrow{display:inline-block;color:var(--deep);background:#ffe0e1;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:.06em}.hero h2{font-size:clamp(28px,5vw,48px);line-height:1.08;margin:16px 0 12px;letter-spacing:-.04em}.hero h2 span{color:var(--red)}.hero p{color:var(--muted);line-height:1.7;max-width:570px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.tang-card{padding:20px;background:radial-gradient(circle at 50% 25%,#fff 0,#fff5f5 60%,#ffe1e2 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:260px}.tang{width:126px;height:126px;border-radius:38% 42% 45% 38%;background:#ffd2aa;border:5px solid white;box-shadow:0 6px 0 #d83c43;position:relative;display:grid;place-items:center;font-size:57px}.tang:before{content:"";position:absolute;top:-10px;left:13px;right:13px;height:39px;background:#30252a;border-radius:55% 55% 25% 25%;z-index:1}.tang:after{content:"";position:absolute;width:20px;height:8px;border-bottom:4px solid #39232b;border-radius:50%;top:66px;left:48px}.tang-card h3{margin:16px 0 4px}.tang-card p{font-size:13px;margin:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}.stat{padding:16px 18px}.stat span{display:block;font-size:12px;color:var(--muted);font-weight:750}.stat strong{display:block;font-size:27px;margin-top:5px;color:var(--deep)}
+.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);gap:18px;align-items:start}.panel{padding:20px;margin-bottom:18px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.panel h3{margin:0;font-size:18px}.sub{font-size:12px;color:var(--muted)}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tab{background:#f7eeee;color:#6f3538}.tab.active{background:var(--red);color:white}.question{font-size:19px;line-height:1.55;font-weight:800;margin:16px 0}.qmeta{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px}.options{display:grid;gap:10px}.option{display:flex;text-align:left;gap:12px;align-items:center;background:#fffafa;border:1px solid #f1d4d5;padding:13px;border-radius:14px;color:var(--ink)}.option .letter{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:#ffe3e4;color:var(--deep);font-weight:900;flex-shrink:0}.option.selected{border:2px solid var(--red);background:#fff0f0}.option.correct{border:2px solid #1c9b61;background:#edfff5}.option.wrong{border:2px solid #d71920;background:#fff0f0}.quiz-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px}.feedback{margin-top:14px;border-radius:13px;padding:12px;background:#f7f4f4;font-size:14px;line-height:1.55}.feedback.good{background:#eafff2;color:#12683e}.feedback.bad{background:#fff0f0;color:#9a1720}.rank-row{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #f5e4e5}.rank-row:last-child{border-bottom:0}.rank-num{width:32px;height:32px;border-radius:11px;background:#ffe5e6;color:var(--deep);display:grid;place-items:center;font-weight:900}.rank-row:nth-child(1) .rank-num{background:#ffdf77;color:#754d00}.rank-info{flex:1;min-width:0}.rank-info b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rank-info small{color:var(--muted)}.points{font-weight:900;color:var(--deep)}.join-form{display:flex;gap:8px}.join-form input,.field input,.field select,.field textarea{min-width:0;width:100%;border:1px solid #e8cacc;border-radius:11px;padding:11px;background:#fffafa;outline-color:var(--red)}.join-form input{flex:1}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:12px;font-weight:800;color:#66565a}.field textarea{min-height:72px;resize:vertical}.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.teacher-tools{display:grid;grid-template-columns:1fr 1fr;gap:8px}.teacher-tools button{font-size:13px}.teacher-hidden{display:none}.notice{background:#fff7df;color:#775416;padding:12px;border-radius:12px;font-size:12px;line-height:1.55}.empty{color:var(--muted);font-size:13px;padding:14px 0}.small-btn{padding:7px 10px;font-size:12px}.footer{text-align:center;color:#a38a8c;font-size:12px;padding:16px}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.tang-card{min-height:210px}.layout{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:13px}.stat strong{font-size:23px}.header-right .pill{display:none}}
+@media(max-width:420px){.field-row{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:span 2}.join-form{flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">T</div><div><h1>Tang Live Classroom</h1><small>SPM 特攻班 · Learn • Play • Score</small></div></div>
+  <div class="header-right"><span class="pill">🔴 BETA CLASSROOM</span><button class="pill" id="teacherToggle">🔐 老师控制台</button></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">WELCOME, ALL A SQUAD</span>
+      <h2>课堂开始，<br><span>冲刺 A+！</span></h2>
+      <p>加入 Tang 的互动课堂，挑战 BM Bahasa Melayu 和 Sejarah 历史题目。答对得分，登上班级排行榜！</p>
+      <div class="actions"><button class="primary" id="startBtn">▶ 开始挑战</button><button class="soft" id="scrollQuiz">查看课堂测验 ↓</button></div>
+    </div>
+    <div class="tang-card"><div class="tang" aria-label="Cartoon Tang">👨🏻‍🏫</div><h3>Hi, saya Tang!</h3><p>Fokus · Konsisten · Skor A+</p></div>
+  </section>
+  <section class="stats">
+    <div class="stat"><span>🧠 SOALAN DIJAWAB / 已答题数</span><strong id="answeredStat">0</strong></div>
+    <div class="stat"><span>⭐ MARKAH SAYA / 我的积分</span><strong id="myScoreStat">0</strong></div>
+    <div class="stat"><span>🏆 KEDUDUKAN / 我的排名</span><strong id="myRankStat">—</strong></div>
+  </section>
+  <div class="layout">
+    <div>
+      <section class="panel" id="quizPanel">
+        <div class="panel-head"><h3>🎮 课堂挑战 / Class Challenge</h3><span class="sub" id="modeLabel">练习模式</span></div>
+        <div class="tabs"><button class="tab active" data-subject="BM">Bahasa Melayu</button><button class="tab" data-subject="Sejarah">Sejarah</button><button class="tab" data-subject="All">混合挑战</button></div>
+        <div class="qmeta" style="margin-top:18px"><span id="subjectTag">BM · Tatabahasa</span><span id="questionCounter">Soalan 1</span></div>
+        <div class="question" id="questionText">按“开始挑战”开始作答。</div>
+        <div class="options" id="options"></div>
+        <div id="feedback" aria-live="polite"></div>
+        <div class="quiz-footer"><span class="sub" id="streakText">每答对一题获得 10 分</span><div style="display:flex;gap:8px"><button class="soft" id="skipBtn">跳过</button><button class="primary" id="nextBtn">开始答题 →</button></div></div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><h3>👤 学生加入课堂</h3><span class="sub">本机 Beta</span></div>
+        <form id="joinForm" class="join-form"><input id="studentName" maxlength="24" placeholder="输入你的名字 / Nama pelajar" required><button class="primary" type="submit">加入</button></form>
+        <p class="sub">此版本会将资料保存在当前浏览器。不同手机之间不会自动同步。</p>
+      </section>
+      <section class="panel teacher-hidden" id="teacherPanel">
+        <div class="panel-head"><h3>🔐 老师控制台 / Teacher Panel</h3><button class="danger small-btn" id="closeTeacher">关闭</button></div>
+        <div id="teacherLock">
+          <p class="sub">输入老师密码进入控制台。默认 Beta 密码：<b>tang123</b>（发布前请修改代码）。</p>
+          <form id="teacherLogin" class="join-form"><input id="teacherPassword" type="password" placeholder="老师密码" required><button class="primary" type="submit">登入</button></form>
+        </div>
+        <div id="teacherContent" class="teacher-hidden">
+          <div class="notice">老师工具可管理当前浏览器中的题库、积分与课堂状态。此 Beta 密码只用于演示，不是安全的线上身份验证。</div>
+          <div class="field-row"><div class="field"><label>科目</label><select id="newSubject"><option>BM</option><option>Sejarah</option></select></div><div class="field"><label>分数（答对）</label><input id="newPoints" type="number" min="1" max="100" value="10"></div></div>
+          <div class="field"><label>题目</label><textarea id="newQuestion" placeholder="输入新题目……"></textarea></div>
+          <div class="field"><label>选项 A</label><input id="optA" placeholder="选项 A"></div><div class="field"><label>选项 B</label><input id="optB" placeholder="选项 B"></div><div class="field"><label>选项 C</label><input id="optC" placeholder="选项 C"></div><div class="field"><label>选项 D</label><input id="optD" placeholder="选项 D"></div>
+          <div class="field"><label>正确答案</label><select id="correctAnswer"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select></div>
+          <div class="field"><label>答案解析</label><textarea id="newExplanation" placeholder="解释为什么正确……"></textarea></div>
+          <div class="teacher-tools"><button class="primary" id="addQuestion" type="button">＋ 加入题库</button><button class="soft" id="resetQuiz" type="button">重置本次挑战</button><button class="soft" id="exportData" type="button">导出排行榜 CSV</button><button class="danger" id="clearData" type="button">清除本机数据</button></div>
+          <p class="sub">当前题库：<b id="questionBankCount">0</b> 题</p>
+        </div>
+      </section>
+    </div>
+    <aside>
+      <section class="panel">
+        <div class="panel-head"><h3>🏆 班级排行榜</h3><button class="soft small-btn" id="refreshRanks">刷新</button></div>
+        <div id="leaderboard"></div>
+        <div class="sub">积分按当前浏览器保存；同一设备可为学生记录分数。</div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><h3>📣 课堂公告</h3><span class="sub">TANG NOTICE</span></div>
+        <div class="notice">欢迎来到 Tang Live Classroom！请认真作答、尊重同学，目标是共同进步、冲刺 A+。</div>
+        <div class="field"><label>老师公告（仅本机显示）</label><input id="announcementInput" placeholder="输入公告内容"></div>
+        <button class="primary" id="publishAnnouncement" style="width:100%">发布公告</button>
+        <p id="announcementText" class="sub">Belajar bersama, berjaya bersama!</p>
+      </section>
+      <section class="panel">
+        <h3>📌 Beta 版说明</h3>
+        <p class="sub" style="line-height:1.7">✅ 可点击测验与即时反馈<br>✅ BM / Sejarah / 混合题库<br>✅ 本机积分与排行榜<br>✅ 老师新增题目、重置与导出<br>⚠️ 当前没有多设备实时同步、真正账号系统或云端数据库。</p>
+      </section>
+    </aside>
+  </div>
+  <div class="footer">Tang Live Classroom · Beta 0.1 · Dibina untuk belajar dengan lebih menyeronokkan ❤️</div>
+</main>
+<script>
+const STORAGE_KEY='tangLiveClassroomBeta_v1';
+const starterQuestions=[
+{subject:'BM',topic:'Tatabahasa',q:'Pilih ayat yang menggunakan imbuhan dengan betul.',opts:['Adik sedang membaca buku di ruang tamu.','Adik sedang membacakan buku di ruang tamu.','Adik sedang dibaca buku di ruang tamu.','Adik sedang pembaca buku di ruang tamu.'],ans:0,exp:'“Membaca” ialah kata kerja yang sesuai dalam ayat ini: Adik sedang membaca buku.'},
+{subject:'BM',topic:'Peribahasa',q:'Apakah maksud peribahasa “bagai aur dengan tebing”?',opts:['Saling membantu antara satu sama lain','Bersikap mementingkan diri','Bekerja tanpa perancangan','Berasa takut untuk mencuba'],ans:0,exp:'Peribahasa ini menggambarkan hubungan yang saling membantu dan bekerjasama.'},
+{subject:'BM',topic:'Kosa Kata',q:'Pilih perkataan yang paling hampir maksudnya dengan “gigih”.',opts:['Malas','Tekun','Cuai','Bimbang'],ans:1,exp:'“Tekun” bermaksud bersungguh-sungguh dan rajin melakukan sesuatu.'},
+{subject:'BM',topic:'Tatabahasa',q:'Pilih ayat yang betul dari segi penggunaan kata sendi nama.',opts:['Mereka berbincang tentang masalah itu.','Mereka berbincang dengan masalah itu.','Mereka berbincang daripada masalah itu.','Mereka berbincang kepada masalah itu.'],ans:0,exp:'Kata sendi nama “tentang” digunakan untuk menunjukkan perkara yang dibincangkan.'},
+{subject:'BM',topic:'Kata Hubung',q:'Lengkapkan ayat: “Kita mesti belajar bersungguh-sungguh _____ berjaya dalam peperiksaan.”',opts:['tetapi','supaya','walaupun','sambil'],ans:1,exp:'“Supaya” menunjukkan tujuan, iaitu belajar bersungguh-sungguh untuk mencapai kejayaan.'},
+{subject:'Sejarah',topic:'Kemerdekaan',q:'Siapakah tokoh yang mengisytiharkan kemerdekaan Persekutuan Tanah Melayu pada 31 Ogos 1957?',opts:['Tun H. S. Lee','Tunku Abdul Rahman Putra Al-Haj','Tun Tan Cheng Lock','Tun V. T. Sambanthan'],ans:1,exp:'Tunku Abdul Rahman Putra Al-Haj mengisytiharkan kemerdekaan pada 31 Ogos 1957.'},
+{subject:'Sejarah',topic:'Nasionalisme',q:'Apakah tujuan utama gerakan nasionalisme?',opts:['Mempertahankan kuasa penjajah','Meningkatkan pergantungan kepada kuasa luar','Memperjuangkan maruah bangsa dan pemerintahan sendiri','Menghapuskan semua kegiatan pendidikan'],ans:2,exp:'Gerakan nasionalisme memperjuangkan maruah bangsa, hak rakyat dan pemerintahan sendiri.'},
+{subject:'Sejarah',topic:'Perlembagaan',q:'Apakah kepentingan Perlembagaan Persekutuan?',opts:['Menjadi undang-undang tertinggi negara','Menggantikan semua pilihan raya','Menentukan harga semua barangan','Menghapuskan tugas mahkamah'],ans:0,exp:'Perlembagaan Persekutuan ialah undang-undang tertinggi yang menjadi asas pentadbiran negara.'},
+{subject:'Sejarah',topic:'Perpaduan',q:'Mengapakah perpaduan penting dalam masyarakat berbilang kaum?',opts:['Supaya satu kaum menguasai semua pihak','Untuk mengelakkan kerjasama','Untuk mewujudkan keamanan dan kestabilan','Untuk menghalang pertukaran budaya'],ans:2,exp:'Perpaduan membantu mengekalkan keamanan, kestabilan dan keharmonian masyarakat.'},
+{subject:'Sejarah',topic:'Pembentukan Malaysia',q:'Malaysia dibentuk pada tahun berapakah?',opts:['1948','1957','1963','1969'],ans:2,exp:'Malaysia dibentuk pada 16 September 1963.'}
+];
+let state={students:{},currentStudent:'',subject:'BM',questions:starterQuestions,sessionAnswered:0,sessionScore:0,seen:[],currentQ:null,selected:null,locked:false,announcement:'Belajar bersama, berjaya bersama!'};
+function load(){try{const raw=localStorage.getItem(STORAGE_KEY);if(raw){const saved=JSON.parse(raw);state.students=saved.students||{};state.questions=[...starterQuestions,...(saved.customQuestions||[])];state.announcement=saved.announcement||state.announcement;}}catch(e){}}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({students:state.students,customQuestions:state.questions.slice(starterQuestions.length),announcement:state.announcement}));}catch(e){}}
+function current(){return state.students[state.currentStudent]||null}
+function eligible(){return state.questions.filter(q=>state.subject==='All'||q.subject===state.subject)}
+function chooseQuestion(){let pool=eligible();if(!pool.length)return null;let unseen=pool.filter(q=>!state.seen.includes(q._id||q.q));if(!unseen.length){state.seen=[];unseen=pool;}return unseen[Math.floor(Math.random()*unseen.length)]}
+function start(){if(!state.currentStudent){document.getElementById('studentName').focus();document.getElementById('feedback').innerHTML='<div class="feedback bad">请先输入名字并加入课堂。</div>';return;}state.currentQ=chooseQuestion();state.selected=null;state.locked=false;renderQuestion();document.getElementById('quizPanel').scrollIntoView({behavior:'smooth',block:'start'});}
+function renderQuestion(){let q=state.currentQ;const options=document.getElementById('options'),text=document.getElementById('questionText'),feedback=document.getElementById('feedback');feedback.innerHTML='';options.innerHTML='';document.getElementById('nextBtn').textContent=q?'提交答案 ✓':'开始答题 →';if(!q){text.textContent='这个科目暂时没有题目。';return;}document.getElementById('subjectTag').textContent=q.subject+' · '+(q.topic||'Class Challenge');document.getElementById('questionCounter').textContent='Soalan '+(state.sessionAnswered+1);text.textContent=q.q;q.opts.forEach((o,i)=>{const b=document.createElement('button');b.className='option';b.innerHTML='<span class="letter">'+String.fromCharCode(65+i)+'</span><span></span>';b.lastElementChild.textContent=o;b.addEventListener('click',()=>selectOption(i));options.appendChild(b);});}
+function selectOption(i){if(state.locked||!state.currentQ)return;state.selected=i;[...document.querySelectorAll('.option')].forEach((b,j)=>b.classList.toggle('selected',j===i));}
+function submit(){if(!state.currentQ){start();return;}if(state.locked){next();return;}if(state.selected===null){document.getElementById('feedback').innerHTML='<div class="feedback bad">请先选择一个答案。</div>';return;}const q=state.currentQ,correct=state.selected===q.ans;state.locked=true;state.sessionAnswered++;let st=current();if(st){st.answered=(st.answered||0)+1;if(correct){const pts=Number(q.points||10);st.score=(st.score||0)+pts;state.sessionScore+=pts;st.correct=(st.correct||0)+1;}}state.seen.push(q._id||q.q);[...document.querySelectorAll('.option')].forEach((b,j)=>{b.disabled=true;if(j===q.ans)b.classList.add('correct');if(j===state.selected&&j!==q.ans)b.classList.add('wrong');});document.getElementById('feedback').innerHTML='<div class="feedback '+(correct?'good':'bad')+'"><b>'+(correct?'答对了！+'+(q.points||10)+' 分 🎉':'再接再厉！')+'</b><br>'+escapeHtml(q.exp||'请复习正确答案。')+'</div>';document.getElementById('nextBtn').textContent='下一题 →';document.getElementById('streakText').textContent=correct?'Bagus! Teruskan momentum anda.':'Jangan putus asa, cuba lagi!';save();renderStats();renderRanks();}
+function next(){if(!state.locked){submit();return;}state.currentQ=chooseQuestion();state.selected=null;state.locked=false;renderQuestion();}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderStats(){let st=current();document.getElementById('answeredStat').textContent=st?(st.answered||0):0;document.getElementById('myScoreStat').textContent=st?(st.score||0):0;let arr=Object.entries(state.students).sort((a,b)=>(b[1].score||0)-(a[1].score||0));let rank=arr.findIndex(x=>x[0]===state.currentStudent);document.getElementById('myRankStat').textContent=rank<0?'—':'#'+(rank+1);}
+function renderRanks(){let el=document.getElementById('leaderboard');let arr=Object.entries(state.students).sort((a,b)=>(b[1].score||0)-(a[1].score||0));el.innerHTML='';if(!arr.length){el.innerHTML='<div class="empty">还没有学生。加入课堂后开始挑战吧！</div>';return;}arr.slice(0,10).forEach(([name,s],i)=>{let row=document.createElement('div');row.className='rank-row';row.innerHTML='<div class="rank-num">'+(i+1)+'</div><div class="rank-info"><b></b><small></small></div><div class="points"></div>';row.querySelector('b').textContent=name+(name===state.currentStudent?' (你)':'');row.querySelector('small').textContent=(s.answered||0)+' 题已答';row.querySelector('.points').textContent=(s.score||0)+' pts';el.appendChild(row);});renderStats();}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));state.subject=b.dataset.subject;state.currentQ=null;state.selected=null;state.locked=false;state.seen=[];document.getElementById('modeLabel').textContent=state.subject==='All'?'混合模式':state.subject+' 模式';renderQuestion();}));
+document.getElementById('startBtn').addEventListener('click',start);document.getElementById('scrollQuiz').addEventListener('click',()=>document.getElementById('quizPanel').scrollIntoView({behavior:'smooth'}));document.getElementById('nextBtn').addEventListener('click',submit);document.getElementById('skipBtn').addEventListener('click',()=>{state.currentQ=chooseQuestion();state.selected=null;state.locked=false;renderQuestion();});
+document.getElementById('joinForm').addEventListener('submit',e=>{e.preventDefault();let name=document.getElementById('studentName').value.trim();if(!name)return;if(!state.students[name])state.students[name]={score:0,answered:0,correct:0};state.currentStudent=name;document.getElementById('studentName').value=name;save();renderRanks();document.getElementById('feedback').innerHTML='<div class="feedback good">欢迎你，'+escapeHtml(name)+'！按“开始挑战”开始答题。</div>';renderStats();});
+const panel=document.getElementById('teacherPanel');document.getElementById('teacherToggle').addEventListener('click',()=>{panel.classList.toggle('teacher-hidden');panel.scrollIntoView({behavior:'smooth',block:'center'});});document.getElementById('closeTeacher').addEventListener('click',()=>panel.classList.add('teacher-hidden'));
+document.getElementById('teacherLogin').addEventListener('submit',e=>{e.preventDefault();if(document.getElementById('teacherPassword').value==='tang123'){document.getElementById('teacherLock').classList.add('teacher-hidden');document.getElementById('teacherContent').classList.remove('teacher-hidden');document.getElementById('questionBankCount').textContent=state.questions.length;}else alert('密码不正确。');});
+document.getElementById('addQuestion').addEventListener('click',()=>{let q=document.getElementById('newQuestion').value.trim(),opts=['optA','optB','optC','optD'].map(id=>document.getElementById(id).value.trim());if(!q||opts.some(x=>!x)){alert('请填写题目和全部四个选项。');return;}state.questions.push({subject:document.getElementById('newSubject').value,topic:'Teacher-created',q,opts,ans:Number(document.getElementById('correctAnswer').value),exp:document.getElementById('newExplanation').value.trim(),points:Number(document.getElementById('newPoints').value)||10,custom:true});save();document.getElementById('questionBankCount').textContent=state.questions.length;['newQuestion','optA','optB','optC','optD','newExplanation'].forEach(id=>document.getElementById(id).value='');alert('题目已加入本机题库！');});
+document.getElementById('resetQuiz').addEventListener('click',()=>{state.sessionAnswered=0;state.sessionScore=0;state.seen=[];state.currentQ=null;state.selected=null;state.locked=false;renderQuestion();document.getElementById('streakText').textContent='每答对一题获得 10 分';});
+document.getElementById('exportData').addEventListener('click',()=>{let rows=[['Name','Score','Answered','Correct'],...Object.entries(state.students).map(([n,s])=>[n,s.score||0,s.answered||0,s.correct||0])];let csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));a.download='tang-classroom-leaderboard.csv';a.click();URL.revokeObjectURL(a.href);});
+document.getElementById('clearData').addEventListener('click',()=>{if(confirm('确定清除本浏览器中的学生积分和老师新增题目吗？')){localStorage.removeItem(STORAGE_KEY);state.students={};state.questions=[...starterQuestions];state.seen=[];save();renderRanks();renderStats();document.getElementById('questionBankCount').textContent=state.questions.length;alert('已清除本机数据。');}});
+document.getElementById('publishAnnouncement').addEventListener('click',()=>{let t=document.getElementById('announcementInput').value.trim();if(!t)return;state.announcement=t;document.getElementById('announcementText').textContent=t;save();});
+document.getElementById('refreshRanks').addEventListener('click',renderRanks);
+load();document.getElementById('announcementText').textContent=state.announcement;renderRanks();renderStats();document.getElementById('questionBankCount').textContent=state.questions.length;renderQuestion();
+</script>
+</body>
+</html>
